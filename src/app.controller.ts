@@ -1,44 +1,37 @@
 import { Controller, Post, Get, Body, Param, Patch } from "@nestjs/common";
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller("notes")
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @Post("add")
+  @Post("add/:note")
   @ApiTags("notes")
-  addNote(
-      @Body("note") note: string
-  ) {
-      this.appService.insertNote(note);
+  addNote(@Param('note') note: string) {
+    this.appService.insertNote(note);
   }
 
   @Get("all")
-  @ApiTags("note")
-  all(): any {
-    console.log('Hola caracola');
+  @ApiTags("notes")
+  all() {
     return this.appService.fetchAllNotes();
   }
 
   @Get(":id")
   @ApiTags("notes")
-  one(
-      @Param("id") id: number
-  ): any {
+  one(@Param('id') id: number) {
     return this.appService.fetchSingleNote(id);
   }
 
   @Patch("markFavourite/:id")
   @ApiTags("notes")
-  markFavourite(
-      @Param("id") id: number
-  ) {
+  markFavourite(@Param("id") id: number) {
     this.appService.markFavourite(id);
-  }
+  } 
 
   @Get("favourites")
   @ApiTags("notes")
-  favourites(): any{
+  favourites() {
     return this.appService.fetchFavourites();
   }
 }

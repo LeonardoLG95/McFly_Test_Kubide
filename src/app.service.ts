@@ -23,6 +23,13 @@ export class AppService {
         return rows;
     }
 
+    async fetchFavourites() {
+        const con = await mysql.createConnection(connection);
+        const [rows, fields] = await con.execute("SELECT * FROM notes WHERE isFavourite=(?)", [true]);
+        con.end();
+        return rows;
+    }
+
     async fetchSingleNote(id: number) {
         const con = await mysql.createConnection(connection);
         const [row, fields] = await con.execute("SELECT * FROM notes WHERE id=(?)", [id]);
@@ -37,12 +44,5 @@ export class AppService {
         if (row.isFavourite) favourite = false;
         await con.execute("UPDATE notes set isFavourite=(?) WHERE id=(?)", [favourite, id]);
         con.end();
-    }
-
-    async fetchFavourites() {
-        const con = await mysql.createConnection(connection);
-        const [rows, fields] = await con.execute("SELECT * FROM notes WHERE isFavourtie=(?)", [true]);
-        con.end();
-        return rows;
     }
 }
