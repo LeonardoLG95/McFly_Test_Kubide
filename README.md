@@ -22,6 +22,35 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+## Edited by me
+This project also includes swagger, mysql2 (connector for mysql 8) and mysql (in docker, for messages persistance)
+
+For install swagger:
+```
+$ npm install --save @nestjs/swagger swagger-ui-express
+```
+
+For install connector to MySQL 8:
+```
+$ npm install mysql2
+```
+
+For use mysql (docker):
+```
+docker pull mysql:8.0.25
+
+sudo docker run -p 3306:3306 -e MYSQL_DATABASE=notes -e MYSQL_ROOT_PASSWORD=root mysql:8.0.25
+```
+
+For create the same table used in this api:
+```
+CREATE TABLE IF NOT EXISTS notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    note VARCHAR(255) NOT NULL,
+    isFavourite BOOL NOT NULL DEFAULT False
+) ENGINE=INNODB;
+```
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

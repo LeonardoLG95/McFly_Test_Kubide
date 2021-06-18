@@ -1,10 +1,9 @@
-import { Dependencies, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { NotesModule } from './messages/notes.module';
 
 @Module({
-  imports: [NotesModule],
+  imports: [],
   controllers: [AppController],
   providers: [AppService],
 })
